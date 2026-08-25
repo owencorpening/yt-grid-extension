@@ -15,6 +15,15 @@ ytd-search ytd-channel-renderer {
   width: auto !important;
   max-width: none !important;
   margin: 0 !important;
+  /* YouTube's own list-row UI (chapter-preview chips, hover-preview
+     overlays) assumes the old wide row and position: absolute against an
+     ancestor that now spans the whole grid — that's what causes it to
+     visually overlap neighboring cards. Giving each card its own
+     positioning context and clipping anything that still tries to
+     overflow it fixes that without needing to target YouTube's specific
+     (and frequently-changing) internal class names for those elements. */
+  position: relative !important;
+  overflow: hidden !important;
 }
 
 /* Stack thumbnail-over-text like the homepage grid instead of side-by-side list rows */

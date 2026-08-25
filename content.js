@@ -6,21 +6,36 @@ function applyCardWidth(width) {
   document.documentElement.style.setProperty('--yt-grid-card-width', width + 'px');
 }
 
-// Parses YouTube's relative-time text ("3 days ago", "2 weeks ago", etc.)
-// into an approximate age in days. Returns null if the text doesn't match.
+// Parses YouTube's relative-time text into an approximate age in days.
+// Returns null if the text doesn't match. Confirmed live against real
+// search results (2026-08-25): YouTube renders abbreviated units ("1y
+// ago", "4mo ago", "22h ago", "4d ago"), not the full words ("1 year
+// ago") this originally only matched — meaning the filter never matched
+// anything, on any page, ever. Full words kept too in case they show up
+// in some other context.
 function ageInDays(text) {
-  const m = text.trim().match(/^(\d+)\s+(second|minute|hour|day|week|month|year)s?\s+ago$/i);
+  const m = text.trim().match(/^(\d+)\s*(second|sec|s|minute|min|m|hour|hr|h|day|d|week|w|month|mo|year|y)s?\s+ago$/i);
   if (!m) return null;
   const n = parseInt(m[1], 10);
   switch (m[2].toLowerCase()) {
     case 'second':
+    case 'sec':
+    case 's':
     case 'minute':
+    case 'min':
+    case 'm':
     case 'hour':
+    case 'hr':
+    case 'h':
       return 0;
-    case 'day':   return n;
-    case 'week':  return n * 7;
-    case 'month': return n * 30;
-    case 'year':  return n * 365;
+    case 'day':
+    case 'd':   return n;
+    case 'week':
+    case 'w':   return n * 7;
+    case 'month':
+    case 'mo':  return n * 30;
+    case 'year':
+    case 'y':   return n * 365;
   }
   return null;
 }

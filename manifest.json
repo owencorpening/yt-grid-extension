@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "YouTube Search Grid + Recency Filter",
   "version": "1.0",
-  "description": "Grid view for YouTube search results with adjustable column width and an optional 'hide older than N days' filter.",
+  "description": "Grid view for YouTube search results with adjustable column width, plus an optional 'hide older than N days' recency filter on both search results and the homepage.",
   "permissions": ["storage"],
   "icons": {
     "16": "icons/icon16.png",

@@ -40,9 +40,19 @@ function ageInDays(text) {
   return null;
 }
 
+// Search results (ytd-video-renderer) use the legacy metadata markup
+// (span.inline-metadata-item). The homepage (ytd-rich-item-renderer) uses
+// YouTube's newer "lockup" component instead, where the same relative-time
+// text lives in span.ytContentMetadataViewModelMetadataText — confirmed
+// live against the real homepage DOM (2026-08-25). Shorts-shelf items on
+// the homepage carry a view count but no relative-time span at all; those
+// fall through the existing "no parsable date, leave it alone" path below,
+// same as live streams already did on search results.
 function applyAgeFilter() {
-  document.querySelectorAll('ytd-video-renderer').forEach((renderer) => {
-    const spans = renderer.querySelectorAll('span.inline-metadata-item');
+  document.querySelectorAll('ytd-video-renderer, ytd-rich-item-renderer').forEach((renderer) => {
+    const spans = renderer.querySelectorAll(
+      'span.inline-metadata-item, span.ytContentMetadataViewModelMetadataText'
+    );
     let age = null;
     spans.forEach((span) => {
       const a = ageInDays(span.textContent);

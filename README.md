@@ -50,7 +50,10 @@ that this broader injection has no effect on other YouTube pages
 4. Visit any YouTube search results page — the grid applies immediately.
 
 There's no build step. `manifest.json`, `content.js`, `grid.css`,
-`popup.html`, and `popup.js` are the whole extension.
+`popup.html`, `popup.js`, and `icons/` are the whole extension. The icons
+are pre-generated static PNGs (a red 2×2 grid, at 16/32/48/128px) — no
+image tooling is a dependency of this repo, so they're committed as-is
+rather than built from source on install.
 
 ## Settings
 

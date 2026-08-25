@@ -4,6 +4,12 @@
   "version": "1.0",
   "description": "Grid view for YouTube search results with adjustable column width and an optional 'hide older than N days' filter.",
   "permissions": ["storage"],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
   "content_scripts": [
     {
       "matches": ["https://www.youtube.com/*"],
@@ -14,6 +20,12 @@
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "YouTube Grid Settings"
+    "default_title": "YouTube Grid Settings",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
   }
 }

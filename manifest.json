@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Search Grid + Recency Filter",
+  "version": "1.0",
+  "description": "Grid view for YouTube search results with adjustable column width and an optional 'hide older than N days' filter.",
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/results*"],
+      "css": ["grid.css"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "YouTube Grid Settings"
+  }
+}

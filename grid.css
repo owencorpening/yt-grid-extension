@@ -1,0 +1,35 @@
+:root {
+  --yt-grid-card-width: 320px;
+}
+
+ytd-search #contents.ytd-item-section-renderer {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(var(--yt-grid-card-width), 1fr)) !important;
+  gap: 16px !important;
+}
+
+ytd-search ytd-video-renderer,
+ytd-search ytd-playlist-renderer,
+ytd-search ytd-radio-renderer,
+ytd-search ytd-channel-renderer {
+  width: auto !important;
+  max-width: none !important;
+  margin: 0 !important;
+}
+
+/* Stack thumbnail-over-text like the homepage grid instead of side-by-side list rows */
+ytd-search ytd-video-renderer #dismissible.ytd-video-renderer {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+ytd-search ytd-video-renderer #thumbnail.ytd-video-renderer,
+ytd-search ytd-video-renderer ytd-thumbnail {
+  width: 100% !important;
+  margin-right: 0 !important;
+}
+
+ytd-search ytd-video-renderer #details.ytd-video-renderer {
+  margin-left: 0 !important;
+  margin-top: 8px !important;
+}

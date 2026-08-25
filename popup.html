@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body { font-family: system-ui, sans-serif; width: 240px; padding: 12px; }
+  h3 { margin: 0 0 8px; font-size: 14px; }
+  label { display: block; margin-top: 10px; font-size: 13px; }
+  input { width: 100%; box-sizing: border-box; padding: 4px; margin-top: 4px; }
+  button { margin-top: 14px; width: 100%; padding: 6px; cursor: pointer; }
+  .hint { font-size: 11px; color: #666; margin-top: 2px; }
+  #status { font-size: 11px; color: #2a7a2a; height: 14px; margin-top: 6px; }
+</style>
+</head>
+<body>
+  <h3>YouTube Search Grid</h3>
+
+  <label>Card min width (px)
+    <input type="number" id="cardWidth" min="150" max="800" step="10">
+  </label>
+  <div class="hint">Lower = more columns per row</div>
+
+  <label>Hide videos older than (days)
+    <input type="number" id="maxAgeDays" min="0" step="1">
+  </label>
+  <div class="hint">0 = show all ages</div>
+
+  <button id="save">Save</button>
+  <div id="status"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

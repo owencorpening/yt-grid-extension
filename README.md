@@ -30,6 +30,18 @@ would only ever work on the very first full page load of a session and
 silently stop working on every subsequent in-app search until a manual
 reload.
 
+That fix only helps once the script has loaded at all, though — and the
+manifest's `matches` pattern covers all of `youtube.com`, not just
+`/results*`, specifically so it does. If it were scoped to `/results*`
+only, starting a session anywhere else on YouTube (the home page, a watch
+page) and then searching in-app would never inject the script in the
+first place, since content scripts only evaluate `matches` against real
+navigations — no amount of in-page-navigation handling helps if the
+script never ran to begin with. `content.js`'s selectors (`ytd-video-renderer`,
+`ytd-search #contents...`) are specific enough to search-results markup
+that this broader injection has no effect on other YouTube pages
+(confirmed live: zero matches on the home page and a watch page).
+
 ## Installing (unpacked)
 
 1. Open `chrome://extensions`.

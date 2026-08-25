@@ -6,7 +6,7 @@
   "permissions": ["storage"],
   "content_scripts": [
     {
-      "matches": ["https://www.youtube.com/results*"],
+      "matches": ["https://www.youtube.com/*"],
       "css": ["grid.css"],
       "js": ["content.js"],
       "run_at": "document_idle"

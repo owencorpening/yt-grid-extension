@@ -59,3 +59,12 @@ chrome.storage.onChanged.addListener((changes, area) => {
 // Re-apply the age filter as more results load in (infinite scroll)
 const observer = new MutationObserver(() => applyAgeFilter());
 observer.observe(document.body, { childList: true, subtree: true });
+
+// YouTube is a single-page app: navigating between pages by using its own
+// search box or nav links is a client-side route change (history.pushState),
+// not a real browser navigation. Content scripts only ever inject on real
+// navigations, so without this listener the grid/filter would apply once on
+// the very first full page load and never again until a manual reload —
+// even though the extension is working correctly. YouTube fires this event
+// on `document` after every internal route change finishes.
+document.addEventListener('yt-navigate-finish', applyAll);

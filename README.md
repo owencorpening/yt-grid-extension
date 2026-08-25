@@ -20,6 +20,16 @@ Settings are stored via `chrome.storage.sync` and applied by a content
 script — no options page, no background service worker, no permissions
 beyond `storage`.
 
+YouTube is a single-page app: navigating to a search results page via
+YouTube's own search box is a client-side route change
+(`history.pushState`), not a real browser navigation, and content scripts
+only ever inject on real navigations. `content.js` listens for YouTube's
+own `yt-navigate-finish` event (fired on `document` after every internal
+route change) and re-applies both settings — without it, the extension
+would only ever work on the very first full page load of a session and
+silently stop working on every subsequent in-app search until a manual
+reload.
+
 ## Installing (unpacked)
 
 1. Open `chrome://extensions`.

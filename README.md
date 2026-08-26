@@ -78,3 +78,25 @@ listens for `chrome.storage.onChanged` and re-applies both settings live,
 no tab reload needed. (The popup's own status message says "refresh
 YouTube to apply" — that's stale text left over from the original build;
 the live-update listener already makes it unnecessary.)
+
+## Development history
+
+Short log of scope decisions, not a commit-by-commit changelog (see
+`git log` for that) — kept mainly so a scope choice doesn't get
+mistaken for an oversight later.
+
+- v1: grid view + width control, search results page only
+  (`ytd-search` / `ytd-video-renderer` selectors).
+- v2: added date-based recency filtering, search results only.
+- v3 (`d76fd48`): extended the recency filter to the homepage feed
+  (`ytd-rich-item-renderer`, `span.ytContentMetadataViewModelMetadataText`
+  — different DOM than search results). Width control deliberately
+  **not** extended — the homepage already has its own native grid,
+  so there was nothing to override.
+- **Known open gap:** the name "YouTube Search Grid" no longer fully
+  describes what the extension does (it now also filters the
+  homepage). Not yet resolved — either narrow the feature back to
+  search-only, or widen the name/popup to make the per-page scope
+  clear.
+
+  Evolving!

@@ -151,6 +151,11 @@ mistaken for an oversight later.
   except a named list of wide types (channels, shelves, ads, legacy
   playlists) and lockups with a stacked-thumbnail backdrop
   (`yt-collections-stack`, playlists and courses).
+- v1.1.5: YouTube splits search results into several item sections, and
+  a grid per section left a lone video at the end of a section with the
+  rest of its row empty. The sections are now merged into one grid on
+  the section list (`display: contents`), with the per-section grid as
+  fallback when that structure isn't present.
 
 ## Trademark
 

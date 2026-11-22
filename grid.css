@@ -16,6 +16,31 @@ ytd-search #contents.ytd-item-section-renderer {
   align-items: start !important;
 }
 
+/* YouTube splits search results into several item sections, each with its
+   own #contents. A grid per section leaves a lone video at the end of a
+   section with the rest of its row empty (seen 2026-11-22). When the usual
+   section-list structure is there, the sections and their #contents become
+   "display: contents" and their children join one grid on the section
+   list. If that structure isn't there, none of these rules match and the
+   per-section grid above still applies. */
+ytd-search ytd-section-list-renderer > #contents:has(> ytd-item-section-renderer > #contents) {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(var(--yt-grid-card-width), 1fr)) !important;
+  gap: 16px !important;
+  grid-auto-flow: row dense !important;
+  align-items: start !important;
+}
+ytd-search ytd-section-list-renderer > #contents:has(> ytd-item-section-renderer > #contents) > ytd-item-section-renderer,
+ytd-search ytd-section-list-renderer > #contents:has(> ytd-item-section-renderer > #contents) > ytd-item-section-renderer > #contents.ytd-item-section-renderer {
+  display: contents !important;
+}
+/* Anything else at those two levels (section headers, the "load more"
+   spinner) takes a full row. */
+ytd-search ytd-section-list-renderer > #contents:has(> ytd-item-section-renderer > #contents) > :not(ytd-item-section-renderer),
+ytd-search ytd-section-list-renderer > #contents:has(> ytd-item-section-renderer > #contents) > ytd-item-section-renderer > :not(#contents) {
+  grid-column: 1 / -1 !important;
+}
+
 ytd-search ytd-video-renderer,
 ytd-search ytd-playlist-renderer,
 ytd-search ytd-radio-renderer,

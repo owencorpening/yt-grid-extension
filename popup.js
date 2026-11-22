@@ -12,7 +12,7 @@ document.getElementById('save').addEventListener('click', () => {
   const maxAgeDays = parseInt(document.getElementById('maxAgeDays').value, 10) || 0;
   chrome.storage.sync.set({ cardWidth, maxAgeDays }, () => {
     const status = document.getElementById('status');
-    status.textContent = 'Saved — refresh YouTube to apply';
+    status.textContent = 'Saved';
     setTimeout(() => (status.textContent = ''), 2000);
   });
 });

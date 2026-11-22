@@ -119,3 +119,24 @@ ytd-search ytd-video-renderer #details.ytd-video-renderer {
   margin-left: 0 !important;
   margin-top: 8px !important;
 }
+
+/* Video results that YouTube renders as a lockup (yt-lockup-view-model, seen
+   on some accounts and page variants) come in a horizontal layout:
+   thumbnail left, text right. In a grid cell that squeezes both, so stack
+   them like the homepage grid. Playlists and courses (collection lockups)
+   are full rows and keep their horizontal layout. Class names checked
+   against live YouTube, 2026-11-22. */
+ytd-search #contents.ytd-item-section-renderer > yt-lockup-view-model:not(:has(yt-collections-stack)) .ytLockupViewModelHorizontal {
+  flex-direction: column !important;
+  align-items: stretch !important;
+}
+ytd-search #contents.ytd-item-section-renderer > yt-lockup-view-model:not(:has(yt-collections-stack)) .ytLockupViewModelContentImage {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 0 8px 0 !important;
+  padding: 0 !important;
+}
+ytd-search #contents.ytd-item-section-renderer > yt-lockup-view-model:not(:has(yt-collections-stack)) .ytLockupViewModelMetadata {
+  width: 100% !important;
+  max-width: none !important;
+}

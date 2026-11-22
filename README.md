@@ -165,6 +165,11 @@ mistaken for an oversight later.
   claimed a grid column, leaving a blank cell at the end of a row
   (signed-out "soccer" search). `content.js` now also moves 0-height
   items to a full row, where they take no space.
+- v1.1.8: video results rendered as `yt-lockup-view-model` arrive in a
+  horizontal layout (thumbnail left, text right) that got squeezed in a
+  grid cell; they now stack thumbnail-over-text. Class names
+  (`ytLockupViewModelHorizontal`, `ytLockupViewModelContentImage`,
+  `ytLockupViewModelMetadata`) checked against live YouTube.
 
 ## Trademark
 

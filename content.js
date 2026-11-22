@@ -60,8 +60,22 @@ function applyAgeFilter() {
     });
     if (age === null) return; // no parsable date found, leave it alone
     const tooOld = settings.maxAgeDays > 0 && age > settings.maxAgeDays;
-    renderer.style.display = tooOld ? 'none' : '';
+    gridCellFor(renderer).style.display = tooOld ? 'none' : '';
   });
+}
+
+// The element to hide is the grid's own child (the cell), not necessarily the
+// renderer. If YouTube wraps a result in another element, hiding only the
+// inner renderer leaves an empty wrapper that still takes a grid slot, which
+// shows up as a blank hole in the grid (seen 2026-11-22). Outside the search
+// grid (e.g. the homepage), the renderer itself is hidden as before.
+const SEARCH_GRID = 'ytd-search #contents.ytd-item-section-renderer';
+function gridCellFor(renderer) {
+  const grid = renderer.closest(SEARCH_GRID);
+  if (!grid) return renderer;
+  let el = renderer;
+  while (el.parentElement && el.parentElement !== grid) el = el.parentElement;
+  return el.parentElement === grid ? el : renderer;
 }
 
 function applyAll() {

@@ -127,6 +127,14 @@ mistaken for an oversight later.
   also names both features, which closes the old gap where "Search Grid"
   didn't mention the homepage filter. Removed the stale "refresh YouTube
   to apply" popup text.
+- v1.1.1: fixed blank holes in the search grid (reported 2026-11-22,
+  a "soccer" search showed an empty cell at row 1, column 3). Two
+  causes, both handled: the recency filter now hides the grid's own
+  cell rather than an inner renderer (a wrapped result left an empty
+  wrapper in its slot), and anything in the results list that isn't a
+  single result (shelves, ad slots, which are empty for Premium users)
+  takes a full row with `grid-auto-flow: dense` so the next result
+  fills the gap.
 
 ## Trademark
 

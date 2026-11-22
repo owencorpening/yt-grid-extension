@@ -6,6 +6,10 @@ ytd-search #contents.ytd-item-section-renderer {
   display: grid !important;
   grid-template-columns: repeat(auto-fill, minmax(var(--yt-grid-card-width), 1fr)) !important;
   gap: 16px !important;
+  /* "dense" lets the next result fill a cell left open before a full-row
+     item (see below), so a shelf or empty ad slot never leaves a hole at
+     the end of the row above it. Results keep their order among themselves. */
+  grid-auto-flow: row dense !important;
 }
 
 ytd-search ytd-video-renderer,
@@ -24,6 +28,14 @@ ytd-search ytd-channel-renderer {
      (and frequently-changing) internal class names for those elements. */
   position: relative !important;
   overflow: hidden !important;
+}
+
+/* Anything in the results list that isn't a single result (shelves, ad slots,
+   "people also watched" blocks, continuation spinners) gets a full row
+   instead of one grid cell. An empty one (e.g. an ad slot for a Premium
+   user) otherwise sits in a cell and shows as a blank hole in the grid. */
+ytd-search #contents.ytd-item-section-renderer > :not(ytd-video-renderer, ytd-playlist-renderer, ytd-radio-renderer, ytd-channel-renderer, yt-lockup-view-model):not(:has(ytd-video-renderer, ytd-playlist-renderer, ytd-radio-renderer, ytd-channel-renderer, yt-lockup-view-model)) {
+  grid-column: 1 / -1 !important;
 }
 
 /* Stack thumbnail-over-text like the homepage grid instead of side-by-side list rows */

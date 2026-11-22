@@ -81,9 +81,44 @@ function gridCellFor(renderer) {
   return el.parentElement === grid ? el : renderer;
 }
 
+// Vertical spacing between grid items is a bottom margin, not row-gap
+// (see grid.css). An item that renders nothing (empty ad slot, section
+// header, collapsed shelf) gets no margin, so a run of them between two
+// rows of videos no longer stacks up into a big empty band (seen
+// 2026-11-22: ~170px between row 1 and row 2 on a "soccer" search).
+const GRID_ITEMS = [
+  'ytd-search #contents.ytd-item-section-renderer > *',
+  'ytd-search ytd-section-list-renderer > #contents > *',
+  'ytd-search ytd-section-list-renderer > #contents > ytd-item-section-renderer > *'
+].join(', ');
+function collapseEmptyItems() {
+  document.querySelectorAll(GRID_ITEMS).forEach((el) => {
+    const display = getComputedStyle(el).display;
+    if (display === 'contents' || display === 'none') return;
+    if (el.getBoundingClientRect().height === 0) {
+      el.style.setProperty('margin-bottom', '0', 'important');
+    } else {
+      el.style.removeProperty('margin-bottom');
+    }
+  });
+}
+
 function applyAll() {
   applyCardWidth(settings.cardWidth);
   applyAgeFilter();
+  collapseEmptyItems();
+}
+
+// Coalesce bursts of DOM changes into one pass per animation frame.
+let pending = false;
+function scheduleApply() {
+  if (pending) return;
+  pending = true;
+  requestAnimationFrame(() => {
+    pending = false;
+    applyAgeFilter();
+    collapseEmptyItems();
+  });
 }
 
 chrome.storage.sync.get(DEFAULTS, (stored) => {
@@ -99,7 +134,7 @@ chrome.storage.onChanged.addListener((changes, area) => {
 });
 
 // Re-apply the age filter as more results load in (infinite scroll)
-const observer = new MutationObserver(() => applyAgeFilter());
+const observer = new MutationObserver(scheduleApply);
 observer.observe(document.body, { childList: true, subtree: true });
 
 // YouTube is a single-page app: navigating between pages by using its own

@@ -156,6 +156,11 @@ mistaken for an oversight later.
   rest of its row empty. The sections are now merged into one grid on
   the section list (`display: contents`), with the per-section grid as
   fallback when that structure isn't present.
+- v1.1.6: merging sections pulled their empty children (headers, empty
+  ad slots) into the grid as full rows, and each one added a 16px row
+  gap, stacking into a big empty band. Vertical spacing is now a bottom
+  margin per item, which `content.js` removes from items that render
+  nothing. DOM-change handling is coalesced to one pass per frame.
 
 ## Trademark
 

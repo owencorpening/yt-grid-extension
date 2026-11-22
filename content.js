@@ -95,8 +95,14 @@ function collapseEmptyItems() {
   document.querySelectorAll(GRID_ITEMS).forEach((el) => {
     const display = getComputedStyle(el).display;
     if (display === 'contents' || display === 'none') return;
+    // Measure with any earlier full-row override removed, so an item that
+    // has since gained content gets its normal cell back.
+    el.style.removeProperty('grid-column');
     if (el.getBoundingClientRect().height === 0) {
       el.style.setProperty('margin-bottom', '0', 'important');
+      // A 0-height item still claims a column; on a full row it claims none,
+      // so it can't leave a blank cell at the end of a row of videos.
+      el.style.setProperty('grid-column', '1 / -1', 'important');
     } else {
       el.style.removeProperty('margin-bottom');
     }

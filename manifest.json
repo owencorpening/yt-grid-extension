@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Search Grid & Recency Filter for YouTube™",
   "short_name": "Search Grid",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "Shows YouTube search results as a grid you can size, and can hide videos older than a number of days you choose.",
   "homepage_url": "https://owencorpening.github.io/oat-web/tools/search-grid/",
   "permissions": [

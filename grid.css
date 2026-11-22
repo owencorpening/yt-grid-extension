@@ -6,6 +6,10 @@ ytd-search #contents.ytd-item-section-renderer {
   display: grid !important;
   grid-template-columns: repeat(auto-fill, minmax(var(--yt-grid-card-width), 1fr)) !important;
   gap: 16px !important;
+  /* "dense" lets the next result fill a cell left open before a full-row
+     item (see below), so a shelf or empty ad slot never leaves a hole at
+     the end of the row above it. Results keep their order among themselves. */
+  grid-auto-flow: row dense !important;
 }
 
 ytd-search ytd-video-renderer,
@@ -24,6 +28,23 @@ ytd-search ytd-channel-renderer {
      (and frequently-changing) internal class names for those elements. */
   position: relative !important;
   overflow: hidden !important;
+}
+
+/* Only single video results are grid cells. Everything else in the results
+   list (Shorts shelves, sponsored cards, course and playlist cards, channel
+   cards, "people also watched" shelves, empty ad slots) gets a full row,
+   where YouTube's own wide layout fits. As grid cells they overlapped their
+   neighbours or left big empty areas (signed-out search, 2026-11-22). */
+ytd-search #contents.ytd-item-section-renderer > :not(ytd-video-renderer):not(:has(ytd-video-renderer)) {
+  grid-column: 1 / -1 !important;
+}
+
+/* Every cell is its own box: nothing inside may push wider than its column
+   or paint over the next one. */
+ytd-search #contents.ytd-item-section-renderer > * {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  position: relative !important;
 }
 
 /* Stack thumbnail-over-text like the homepage grid instead of side-by-side list rows */

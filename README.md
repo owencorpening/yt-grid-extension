@@ -145,6 +145,12 @@ mistaken for an oversight later.
   instead of stretching to the tallest item in the row, which had
   stretched playlist/course stacked-thumbnail backdrops into tall
   grey blocks.
+- v1.1.4: 1.1.2 made only `ytd-video-renderer` a grid cell, which
+  lost the grid entirely where YouTube renders videos as
+  `yt-lockup-view-model`. Reversed the rule: everything is a cell
+  except a named list of wide types (channels, shelves, ads, legacy
+  playlists) and lockups with a stacked-thumbnail backdrop
+  (`yt-collections-stack`, playlists and courses).
 
 ## Trademark
 

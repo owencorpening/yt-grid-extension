@@ -34,12 +34,29 @@ ytd-search ytd-channel-renderer {
   overflow: hidden !important;
 }
 
-/* Only single video results are grid cells. Everything else in the results
-   list (Shorts shelves, sponsored cards, course and playlist cards, channel
-   cards, "people also watched" shelves, empty ad slots) gets a full row,
-   where YouTube's own wide layout fits. As grid cells they overlapped their
-   neighbours or left big empty areas (signed-out search, 2026-11-22). */
-ytd-search #contents.ytd-item-section-renderer > :not(ytd-video-renderer):not(:has(ytd-video-renderer)) {
+/* Wide items get a full row; everything else is a grid cell. Wide means
+   channel cards, shelves (Shorts and others), horizontal card lists, ad
+   slots, legacy playlist rows, and playlist/course "lockups", which carry a
+   stacked-thumbnail backdrop (yt-collections-stack). Videos can be either
+   ytd-video-renderer or a yt-lockup-view-model, so the grid can't key off
+   the video tag (1.1.2/1.1.3 did, and lost the grid where videos are
+   lockups). If a wide type slips through it shows as a cell, not a break. */
+ytd-search #contents.ytd-item-section-renderer > :is(
+  ytd-channel-renderer,
+  ytd-shelf-renderer,
+  ytd-reel-shelf-renderer,
+  grid-shelf-view-model,
+  ytd-horizontal-card-list-renderer,
+  ytd-ad-slot-renderer,
+  ytd-promoted-sparkles-web-renderer,
+  ytd-search-pyv-renderer,
+  ytd-playlist-renderer,
+  ytd-radio-renderer,
+  ytd-background-promo-renderer,
+  ytd-message-renderer,
+  ytd-continuation-item-renderer
+),
+ytd-search #contents.ytd-item-section-renderer > :has(yt-collections-stack) {
   grid-column: 1 / -1 !important;
 }
 

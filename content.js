@@ -40,6 +40,9 @@ function ageInDays(text) {
   return null;
 }
 
+// Search results may also come as yt-lockup-view-model (the newer
+// component, which uses the same metadata span as the homepage); playlist
+// and course lockups have no "N ago" text and are left alone.
 // Search results (ytd-video-renderer) use the legacy metadata markup
 // (span.inline-metadata-item). The homepage (ytd-rich-item-renderer) uses
 // YouTube's newer "lockup" component instead, where the same relative-time
@@ -49,7 +52,7 @@ function ageInDays(text) {
 // fall through the existing "no parsable date, leave it alone" path below,
 // same as live streams already did on search results.
 function applyAgeFilter() {
-  document.querySelectorAll('ytd-video-renderer, ytd-rich-item-renderer').forEach((renderer) => {
+  document.querySelectorAll('ytd-video-renderer, ytd-rich-item-renderer, ytd-search yt-lockup-view-model').forEach((renderer) => {
     const spans = renderer.querySelectorAll(
       'span.inline-metadata-item, span.ytContentMetadataViewModelMetadataText'
     );

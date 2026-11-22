@@ -141,6 +141,10 @@ mistaken for an oversight later.
   each other or left large empty areas. Now only single video results
   are grid cells; everything else takes a full row in YouTube's own
   layout, and every cell is clipped to its column.
+- v1.1.3: grid items keep their own height (`align-items: start`)
+  instead of stretching to the tallest item in the row, which had
+  stretched playlist/course stacked-thumbnail backdrops into tall
+  grey blocks.
 
 ## Trademark
 

@@ -10,6 +10,10 @@ ytd-search #contents.ytd-item-section-renderer {
      item (see below), so a shelf or empty ad slot never leaves a hole at
      the end of the row above it. Results keep their order among themselves. */
   grid-auto-flow: row dense !important;
+  /* Each item keeps its own height instead of stretching to the tallest
+     item in its row; stretching made playlist/course "stacked thumbnail"
+     backdrops grow into tall grey blocks. */
+  align-items: start !important;
 }
 
 ytd-search ytd-video-renderer,

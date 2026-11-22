@@ -107,6 +107,17 @@ ytd-search #contents.ytd-item-section-renderer > * {
 ytd-search ytd-video-renderer #dismissible.ytd-video-renderer {
   display: flex !important;
   flex-direction: column !important;
+  align-items: stretch !important;
+}
+
+/* Keep the text column at card width. Without this, a long one-line
+   description snippet or a chapters/Summary row sizes the column to its
+   max-content width and titles get cut off at the card edge. */
+ytd-search ytd-video-renderer #dismissible.ytd-video-renderer > .text-wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  flex: 0 0 auto !important;
 }
 
 ytd-search ytd-video-renderer #thumbnail.ytd-video-renderer,

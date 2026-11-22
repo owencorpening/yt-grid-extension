@@ -170,6 +170,10 @@ mistaken for an oversight later.
   grid cell; they now stack thumbnail-over-text. Class names
   (`ytLockupViewModelHorizontal`, `ytLockupViewModelContentImage`,
   `ytLockupViewModelMetadata`) checked against live YouTube.
+- v1.1.9: with narrow cards, a long one-line description snippet or a
+  chapters/Summary row sized the text column to its full one-line width
+  (about 690px in a 278px card), so titles were cut off at the card
+  edge. The text column is now pinned to the card width.
 
 ## Trademark
 

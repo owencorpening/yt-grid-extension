@@ -136,6 +136,11 @@ mistaken for an oversight later.
   single result (shelves, ad slots, which are empty for Premium users)
   takes a full row with `grid-auto-flow: dense` so the next result
   fills the gap.
+- v1.1.2: signed-out search (seen in Incognito) mixes in sponsored
+  cards, Shorts shelves and course cards. As grid cells they overlapped
+  each other or left large empty areas. Now only single video results
+  are grid cells; everything else takes a full row in YouTube's own
+  layout, and every cell is clipped to its column.
 
 ## Trademark
 

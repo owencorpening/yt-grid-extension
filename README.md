@@ -1,12 +1,54 @@
-# YouTube Search Grid + Recency Filter
+# Search Grid & Recency Filter for YouTube™
 
-A small Manifest V3 Chrome extension for YouTube. On search results
-(`youtube.com/results`) it replaces YouTube's default single-column list
-with a tunable grid. On both search results and the homepage it can
-optionally hide videos older than N days. Both are configurable from the
-toolbar popup.
+A free Chrome extension that does two things on YouTube:
 
-## What it does
+- **Grid view for search results.** Shows search results as a grid of
+  cards instead of one long list. You choose how wide each card is, so you
+  choose how many columns you get.
+- **Recency filter.** Hides videos older than a number of days you pick,
+  on search results and on the home page. Off by default.
+
+Both settings live in the toolbar popup and apply as soon as you press
+**Save**.
+
+- Install: Chrome Web Store (listing coming soon), or load unpacked (below).
+- Support and questions: <https://owencorpening.github.io/oat-web/tools/search-grid/>
+- Privacy policy: <https://owencorpening.github.io/oat-web/tools/search-grid/privacy/>
+
+**Privacy in one line:** it collects nothing, sends nothing anywhere, and
+asks only for permission to save its own two settings.
+
+**Limits:** the recency filter reads YouTube's English date text ("3d ago",
+"2 weeks ago"), so it only works with YouTube set to English. Cards with no
+date, such as live streams and Shorts shelves, are always left alone.
+
+## Installing (unpacked, for development)
+
+1. Open `chrome://extensions`.
+2. Enable **Developer mode** (top-right toggle).
+3. Click **Load unpacked** and select this repo's folder.
+4. Visit any YouTube search results page — the grid applies immediately.
+
+There's no build step. `manifest.json`, `content.js`, `grid.css`,
+`popup.html`, `popup.js`, and `icons/` are the whole extension. The icons
+are pre-generated static PNGs (a red 2×2 grid, at 16/32/48/128px) — no
+image tooling is a dependency of this repo, so they're committed as-is
+rather than built from source on install.
+
+## Settings
+
+Click the extension icon to open the popup:
+
+| Setting | What it does | Default |
+| --- | --- | --- |
+| Card min width (px) | Lower values pack more columns per row (grid uses `auto-fill`, so column count adapts to window width automatically). | `320` |
+| Hide videos older than (days) | Applies on both search results and the homepage. `0` shows every result regardless of age. Any positive number hides results whose parsed age exceeds it. Results with no parsable relative-time text (e.g. live streams, homepage shorts-shelf cards) are left alone. | `0` (off) |
+
+Changes take effect immediately after **Save** — the content script
+listens for `chrome.storage.onChanged` and re-applies both settings live,
+no tab reload needed.
+
+## How it works
 
 - **Grid view.** Overrides `youtube.com/results` layout with a CSS grid
   (`repeat(auto-fill, minmax(cardWidth, 1fr))`), stacking each result's
@@ -51,33 +93,18 @@ on the home page and a watch page). The recency filter's selectors are
 deliberately broader, since it's meant to apply on the homepage too — see
 above.
 
-## Installing (unpacked)
+## Packaging for the Chrome Web Store
 
-1. Open `chrome://extensions`.
-2. Enable **Developer mode** (top-right toggle).
-3. Click **Load unpacked** and select this repo's folder.
-4. Visit any YouTube search results page — the grid applies immediately.
+```sh
+./scripts/package.sh
+```
 
-There's no build step. `manifest.json`, `content.js`, `grid.css`,
-`popup.html`, `popup.js`, and `icons/` are the whole extension. The icons
-are pre-generated static PNGs (a red 2×2 grid, at 16/32/48/128px) — no
-image tooling is a dependency of this repo, so they're committed as-is
-rather than built from source on install.
-
-## Settings
-
-Click the extension icon to open the popup:
-
-| Setting | What it does | Default |
-| --- | --- | --- |
-| Card min width (px) | Lower values pack more columns per row (grid uses `auto-fill`, so column count adapts to window width automatically). | `320` |
-| Hide videos older than (days) | Applies on both search results and the homepage. `0` shows every result regardless of age. Any positive number hides results whose parsed age exceeds it. Results with no parsable relative-time text (e.g. live streams, homepage shorts-shelf cards) are left alone. | `0` (off) |
-
-Changes take effect immediately after **Save** — the content script
-listens for `chrome.storage.onChanged` and re-applies both settings live,
-no tab reload needed. (The popup's own status message says "refresh
-YouTube to apply" — that's stale text left over from the original build;
-the live-update listener already makes it unnecessary.)
+Writes `dist/search-grid-<version>.zip` holding only the files Chrome
+needs (manifest, scripts, CSS, popup, icons), with the version read from
+`manifest.json`. Upload that zip in the Chrome Web Store developer
+dashboard. Bump `version` in `manifest.json` before each upload; the store
+rejects a version it has already seen. Listing text lives in
+`store/listing.md`.
 
 ## Development history
 
@@ -93,10 +120,15 @@ mistaken for an oversight later.
   — different DOM than search results). Width control deliberately
   **not** extended — the homepage already has its own native grid,
   so there was nothing to override.
-- **Known open gap:** the name "YouTube Search Grid" no longer fully
-  describes what the extension does (it now also filters the
-  homepage). Not yet resolved — either narrow the feature back to
-  search-only, or widen the name/popup to make the per-page scope
-  clear.
+- v1.1.0: renamed from "YouTube Search Grid + Recency Filter" to
+  "Search Grid & Recency Filter for YouTube™" for the Chrome Web Store.
+  Store branding rules don't allow a Google trademark as the start of an
+  extension name; "… for YouTube™" is the allowed form. The new name
+  also names both features, which closes the old gap where "Search Grid"
+  didn't mention the homepage filter. Removed the stale "refresh YouTube
+  to apply" popup text.
 
-  Evolving!
+## Trademark
+
+YouTube is a trademark of Google LLC. This extension is not made,
+endorsed, or sponsored by Google or YouTube.

@@ -14,3 +14,4 @@
 .DS_Store
 ._*
 Thumbs.db
+dist/

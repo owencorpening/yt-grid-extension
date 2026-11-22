@@ -1,9 +1,13 @@
 {
   "manifest_version": 3,
-  "name": "YouTube Search Grid + Recency Filter",
-  "version": "1.0",
-  "description": "Grid view for YouTube search results with adjustable column width, plus an optional 'hide older than N days' recency filter on both search results and the homepage.",
-  "permissions": ["storage"],
+  "name": "Search Grid & Recency Filter for YouTube™",
+  "short_name": "Search Grid",
+  "version": "1.1.0",
+  "description": "Shows YouTube search results as a grid you can size, and can hide videos older than a number of days you choose.",
+  "homepage_url": "https://owencorpening.github.io/oat-web/tools/search-grid/",
+  "permissions": [
+    "storage"
+  ],
   "icons": {
     "16": "icons/icon16.png",
     "32": "icons/icon32.png",
@@ -12,15 +16,21 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://www.youtube.com/*"],
-      "css": ["grid.css"],
-      "js": ["content.js"],
+      "matches": [
+        "https://www.youtube.com/*"
+      ],
+      "css": [
+        "grid.css"
+      ],
+      "js": [
+        "content.js"
+      ],
       "run_at": "document_idle"
     }
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "YouTube Grid Settings",
+    "default_title": "Search Grid settings",
     "default_icon": {
       "16": "icons/icon16.png",
       "32": "icons/icon32.png",

@@ -161,6 +161,10 @@ mistaken for an oversight later.
   gap, stacking into a big empty band. Vertical spacing is now a bottom
   margin per item, which `content.js` removes from items that render
   nothing. DOM-change handling is coalesced to one pass per frame.
+- v1.1.7: an item that renders nothing but isn't on the wide list still
+  claimed a grid column, leaving a blank cell at the end of a row
+  (signed-out "soccer" search). `content.js` now also moves 0-height
+  items to a full row, where they take no space.
 
 ## Trademark
 

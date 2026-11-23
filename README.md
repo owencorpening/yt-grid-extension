@@ -11,7 +11,8 @@ A free Chrome extension that does two things on YouTube:
 Both settings live in the toolbar popup and apply as soon as you press
 **Save**.
 
-- Install: Chrome Web Store (listing coming soon), or load unpacked (below).
+**[Install from the Chrome Web Store](https://chromewebstore.google.com/detail/search-grid-recency-filte/ljghjhddjnnnjmaakpimcbidjckddgdf)**
+
 - Support and questions: <https://owencorpening.github.io/oat-web/tools/search-grid/>
 - Privacy policy: <https://owencorpening.github.io/oat-web/tools/search-grid/privacy/>
 
@@ -22,7 +23,7 @@ asks only for permission to save its own two settings.
 "2 weeks ago"), so it only works with YouTube set to English. Cards with no
 date, such as live streams and Shorts shelves, are always left alone.
 
-## Installing (unpacked, for development)
+## Developer install
 
 1. Open `chrome://extensions`.
 2. Enable **Developer mode** (top-right toggle).

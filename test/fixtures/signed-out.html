@@ -1,0 +1,101 @@
+<!doctype html>
+<!--
+  Signed-out YouTube search results — the layout the extension was NOT
+  originally built against. Here real results arrive as yt-lockup-view-model
+  (both plain videos and, with a yt-collections-stack backdrop, playlists and
+  courses), interleaved with Shorts shelves and ads. The tag relationships
+  below mirror live signed-out YouTube (checked 2026-11-22): the grid scopes
+  on #contents.ytd-item-section-renderer, ads are lockups nested inside
+  ytd-search-pyv-renderer / ytd-ad-slot-renderer, and a section-list wrapper
+  sits above the item section. Each result carries data-expect="cell|row" for
+  the test to assert against.
+-->
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    /* Stand in for YouTube's page chrome: give the search tree a definite
+       width so the grid has real columns to lay out in. */
+    html, body { margin: 0; padding: 0; }
+    ytd-search { display: block; width: 1000px; }
+    ytd-section-list-renderer, ytd-item-section-renderer { display: block; }
+    /* A plausible inner height for each result so 0-height logic isn't hit. */
+    ytd-video-renderer, yt-lockup-view-model, ytd-channel-renderer,
+    ytd-shelf-renderer, grid-shelf-view-model, ytd-search-pyv-renderer,
+    ytd-ad-slot-renderer { display: block; min-height: 120px; }
+    .ytLockupViewModelHorizontal { display: flex; flex-direction: row; }
+    .ytLockupViewModelContentImage { width: 240px; height: 120px; background: #333; }
+    .ytLockupViewModelMetadata { flex: 1; }
+  </style>
+</head>
+<body>
+  <ytd-search>
+    <ytd-section-list-renderer>
+      <div id="contents" class="ytd-section-list-renderer">
+        <ytd-item-section-renderer>
+          <div id="contents" class="ytd-item-section-renderer">
+
+            <!-- Shorts shelf: full row -->
+            <grid-shelf-view-model data-test="shorts-shelf" data-expect="row">Shorts shelf</grid-shelf-view-model>
+
+            <!-- Ad: a lockup nested inside the promoted-video wrapper. The
+                 wrapper (direct grid child) takes the full row. -->
+            <ytd-search-pyv-renderer data-test="ad-pyv" data-expect="row">
+              <yt-lockup-view-model>
+                <div class="ytLockupViewModelHorizontal">
+                  <div class="ytLockupViewModelContentImage"></div>
+                  <div class="ytLockupViewModelMetadata">Sponsored</div>
+                </div>
+              </yt-lockup-view-model>
+            </ytd-search-pyv-renderer>
+
+            <!-- Plain video, lockup form: a grid cell, stacked vertically -->
+            <yt-lockup-view-model data-test="video-lockup" data-expect="cell">
+              <div class="ytLockupViewModelHorizontal">
+                <div class="ytLockupViewModelContentImage"></div>
+                <div class="ytLockupViewModelMetadata">A regular video</div>
+              </div>
+            </yt-lockup-view-model>
+
+            <!-- Course: a collection lockup (yt-collections-stack). THE FIX —
+                 this must grid as a cell, not a full row. -->
+            <yt-lockup-view-model data-test="course-lockup" data-expect="cell">
+              <div class="ytLockupViewModelHorizontal">
+                <div class="ytLockupViewModelContentImage">
+                  <yt-collections-stack></yt-collections-stack>
+                </div>
+                <div class="ytLockupViewModelMetadata">Bridge Engineering (2016) · 26 lessons</div>
+              </div>
+            </yt-lockup-view-model>
+
+            <!-- Playlist: also a collection lockup. Must grid as a cell. -->
+            <yt-lockup-view-model data-test="playlist-lockup" data-expect="cell">
+              <div class="ytLockupViewModelHorizontal">
+                <div class="ytLockupViewModelContentImage">
+                  <yt-collections-stack></yt-collections-stack>
+                </div>
+                <div class="ytLockupViewModelMetadata">Reinforced Concrete Road Bridges · 22 videos</div>
+              </div>
+            </yt-lockup-view-model>
+
+            <!-- Another plain video lockup, to make a full grid row -->
+            <yt-lockup-view-model data-test="video-lockup-2" data-expect="cell">
+              <div class="ytLockupViewModelHorizontal">
+                <div class="ytLockupViewModelContentImage"></div>
+                <div class="ytLockupViewModelMetadata">Another video</div>
+              </div>
+            </yt-lockup-view-model>
+
+            <!-- Channel card: full row -->
+            <ytd-channel-renderer data-test="channel" data-expect="row">A channel</ytd-channel-renderer>
+
+            <!-- Legacy shelf: full row -->
+            <ytd-shelf-renderer data-test="shelf" data-expect="row">People also watched</ytd-shelf-renderer>
+
+          </div>
+        </ytd-item-section-renderer>
+      </div>
+    </ytd-section-list-renderer>
+  </ytd-search>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "yt-grid-extension",
+  "version": "1.2.0",
+  "description": "Search Grid & Recency Filter for YouTube — Chrome MV3 extension",
+  "private": true,
+  "scripts": {
+    "test": "node test/grid.test.mjs",
+    "package": "scripts/package.sh"
+  },
+  "comment": "test needs Chrome at /usr/bin/google-chrome (or $CHROME_PATH) and playwright-core (install with `npm i -D playwright-core`, or it falls back to the copy bundled with a global @playwright/mcp)."
+}

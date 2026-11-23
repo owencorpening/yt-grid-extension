@@ -1,0 +1,74 @@
+<!doctype html>
+<!--
+  Signed-in YouTube search results — the layout the extension was originally
+  built against. Real results arrive mostly as ytd-video-renderer, with legacy
+  ytd-playlist-renderer / ytd-radio-renderer rows for playlists and mixes, plus
+  shelves and the occasional ad. This fixture guards against the signed-out fix
+  regressing the signed-in grid. Each result carries data-expect="cell|row".
+-->
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    html, body { margin: 0; padding: 0; }
+    ytd-search { display: block; width: 1000px; }
+    ytd-section-list-renderer, ytd-item-section-renderer { display: block; }
+    ytd-video-renderer, ytd-playlist-renderer, ytd-radio-renderer,
+    ytd-channel-renderer, ytd-shelf-renderer, ytd-reel-shelf-renderer,
+    ytd-ad-slot-renderer { display: block; min-height: 120px; }
+    #dismissible { display: flex; flex-direction: row; }
+    #thumbnail { width: 240px; height: 120px; background: #333; }
+    .text-wrapper { flex: 1; }
+  </style>
+</head>
+<body>
+  <ytd-search>
+    <ytd-section-list-renderer>
+      <div id="contents" class="ytd-section-list-renderer">
+        <ytd-item-section-renderer>
+          <div id="contents" class="ytd-item-section-renderer">
+
+            <!-- Classic video result: a grid cell, stacked vertically -->
+            <ytd-video-renderer data-test="video" data-expect="cell">
+              <div id="dismissible" class="ytd-video-renderer">
+                <ytd-thumbnail id="thumbnail" class="ytd-video-renderer"></ytd-thumbnail>
+                <div id="details" class="ytd-video-renderer">
+                  <div class="text-wrapper">A classic video result</div>
+                </div>
+              </div>
+            </ytd-video-renderer>
+
+            <!-- Ad slot wrapping a promoted video: full row -->
+            <ytd-ad-slot-renderer data-test="ad-slot" data-expect="row">
+              <ytd-search-pyv-renderer>Sponsored</ytd-search-pyv-renderer>
+            </ytd-ad-slot-renderer>
+
+            <!-- Legacy playlist row: now grids as a cell (playlists/mixes) -->
+            <ytd-playlist-renderer data-test="playlist" data-expect="cell">A playlist</ytd-playlist-renderer>
+
+            <!-- Legacy mix/radio row: now grids as a cell -->
+            <ytd-radio-renderer data-test="radio" data-expect="cell">A mix</ytd-radio-renderer>
+
+            <!-- Second video to fill the row -->
+            <ytd-video-renderer data-test="video-2" data-expect="cell">
+              <div id="dismissible" class="ytd-video-renderer">
+                <ytd-thumbnail id="thumbnail" class="ytd-video-renderer"></ytd-thumbnail>
+                <div id="details" class="ytd-video-renderer">
+                  <div class="text-wrapper">Another video</div>
+                </div>
+              </div>
+            </ytd-video-renderer>
+
+            <!-- Channel card: full row -->
+            <ytd-channel-renderer data-test="channel" data-expect="row">A channel</ytd-channel-renderer>
+
+            <!-- Shorts reel shelf: full row -->
+            <ytd-reel-shelf-renderer data-test="reel-shelf" data-expect="row">Shorts</ytd-reel-shelf-renderer>
+
+          </div>
+        </ytd-item-section-renderer>
+      </div>
+    </ytd-section-list-renderer>
+  </ytd-search>
+</body>
+</html>

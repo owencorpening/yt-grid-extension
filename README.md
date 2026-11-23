@@ -175,6 +175,17 @@ mistaken for an oversight later.
   chapters/Summary row sized the text column to its full one-line width
   (about 690px in a 278px card), so titles were cut off at the card
   edge. The text column is now pinned to the card width.
+- v1.2.0: signed out, YouTube returns playlists and courses as collection
+  lockups (`yt-lockup-view-model` with a `yt-collections-stack` backdrop),
+  and v1.1.4 had forced every such lockup — plus legacy
+  `ytd-playlist-renderer`/`ytd-radio-renderer` rows — to a full row, so
+  those results dropped out of the grid and resizing cards did nothing to
+  them. They now grid as cells and stack thumbnail-over-text like videos.
+  Ads stay full-row because their lockup sits inside
+  `ytd-ad-slot-renderer`/`ytd-search-pyv-renderer`, whose wrapper is the
+  grid child, not the bare result. Added a fixture-based layout test
+  (`test/grid.test.mjs`, `npm test`) covering both the signed-out and
+  signed-in result shapes.
 
 ## Trademark
 

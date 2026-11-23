@@ -61,13 +61,21 @@ ytd-search ytd-channel-renderer {
   overflow: hidden !important;
 }
 
-/* Wide items get a full row; everything else is a grid cell. Wide means
+/* Wide items get a full row; every real result is a grid cell. Wide means
    channel cards, shelves (Shorts and others), horizontal card lists, ad
-   slots, legacy playlist rows, and playlist/course "lockups", which carry a
-   stacked-thumbnail backdrop (yt-collections-stack). Videos can be either
-   ytd-video-renderer or a yt-lockup-view-model, so the grid can't key off
-   the video tag (1.1.2/1.1.3 did, and lost the grid where videos are
-   lockups). If a wide type slips through it shows as a cell, not a break. */
+   slots, and structural rows (messages, the "load more" spinner). Everything
+   else — videos, playlists, courses, and mixes — grids as a cell.
+
+   Results come in several shapes: ytd-video-renderer, or a bare
+   yt-lockup-view-model (both plain videos and, with a stacked-thumbnail
+   backdrop / yt-collections-stack, playlists and courses). The grid can't
+   key off the tag (1.1.2/1.1.3 did and lost the grid where videos are
+   lockups), and it must NOT force collection lockups full-row (1.1.9 did,
+   which dropped signed-out playlists/courses out of the grid — the whole
+   point of this version). Ads are also lockups, but they sit INSIDE
+   ytd-ad-slot-renderer / ytd-search-pyv-renderer, so the ad wrapper (the
+   direct child of #contents) takes the full row and the bare result lockups
+   do not. If a wide type slips through it shows as a cell, not a break. */
 ytd-search #contents.ytd-item-section-renderer > :is(
   ytd-channel-renderer,
   ytd-shelf-renderer,
@@ -77,13 +85,10 @@ ytd-search #contents.ytd-item-section-renderer > :is(
   ytd-ad-slot-renderer,
   ytd-promoted-sparkles-web-renderer,
   ytd-search-pyv-renderer,
-  ytd-playlist-renderer,
-  ytd-radio-renderer,
   ytd-background-promo-renderer,
   ytd-message-renderer,
   ytd-continuation-item-renderer
-),
-ytd-search #contents.ytd-item-section-renderer > :has(yt-collections-stack) {
+) {
   grid-column: 1 / -1 !important;
 }
 
@@ -131,23 +136,25 @@ ytd-search ytd-video-renderer #details.ytd-video-renderer {
   margin-top: 8px !important;
 }
 
-/* Video results that YouTube renders as a lockup (yt-lockup-view-model, seen
-   on some accounts and page variants) come in a horizontal layout:
-   thumbnail left, text right. In a grid cell that squeezes both, so stack
-   them like the homepage grid. Playlists and courses (collection lockups)
-   are full rows and keep their horizontal layout. Class names checked
-   against live YouTube, 2026-11-22. */
-ytd-search #contents.ytd-item-section-renderer > yt-lockup-view-model:not(:has(yt-collections-stack)) .ytLockupViewModelHorizontal {
+/* Results that YouTube renders as a lockup (yt-lockup-view-model, seen on
+   some accounts and page variants, and the norm signed-out) come in a
+   horizontal layout: thumbnail left, text right. In a grid cell that squeezes
+   both, so stack them like the homepage grid. This now covers collection
+   lockups too (playlists and courses, which carry a yt-collections-stack
+   backdrop) — they grid as cells and need the same column layout, so the
+   :not(:has(yt-collections-stack)) qualifier that used to exclude them is
+   gone. Class names checked against live YouTube, 2026-11-22. */
+ytd-search #contents.ytd-item-section-renderer > yt-lockup-view-model .ytLockupViewModelHorizontal {
   flex-direction: column !important;
   align-items: stretch !important;
 }
-ytd-search #contents.ytd-item-section-renderer > yt-lockup-view-model:not(:has(yt-collections-stack)) .ytLockupViewModelContentImage {
+ytd-search #contents.ytd-item-section-renderer > yt-lockup-view-model .ytLockupViewModelContentImage {
   width: 100% !important;
   max-width: none !important;
   margin: 0 0 8px 0 !important;
   padding: 0 !important;
 }
-ytd-search #contents.ytd-item-section-renderer > yt-lockup-view-model:not(:has(yt-collections-stack)) .ytLockupViewModelMetadata {
+ytd-search #contents.ytd-item-section-renderer > yt-lockup-view-model .ytLockupViewModelMetadata {
   width: 100% !important;
   max-width: none !important;
 }

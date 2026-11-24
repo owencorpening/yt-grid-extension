@@ -13,8 +13,8 @@ Both settings live in the toolbar popup and apply as soon as you press
 
 **[Install from the Chrome Web Store](https://chromewebstore.google.com/detail/search-grid-recency-filte/ljghjhddjnnnjmaakpimcbidjckddgdf)**
 
-- Support and questions: <https://owencorpening.github.io/oat-web/tools/search-grid/>
-- Privacy policy: <https://owencorpening.github.io/oat-web/tools/search-grid/privacy/>
+- Support and questions: <https://owensappliedthinking.com/tools/search-grid/>
+- Privacy policy: <https://owensappliedthinking.com/tools/search-grid/privacy/>
 
 **Privacy in one line:** it collects nothing, sends nothing anywhere, and
 asks only for permission to save its own two settings.
@@ -186,6 +186,11 @@ mistaken for an oversight later.
   grid child, not the bare result. Added a fixture-based layout test
   (`test/grid.test.mjs`, `npm test`) covering both the signed-out and
   signed-in result shapes.
+- v1.2.1: store name now "Search Grid & Recency Filter for YouTube™: Grid View, Hide Old Videos"
+  (69 of 75 characters; `short_name` stays "Search Grid") and a new
+  summary/`description`, so the listing matches what people search for.
+  `homepage_url` and the support/privacy links moved to
+  owensappliedthinking.com. No code change.
 
 ## Trademark
 

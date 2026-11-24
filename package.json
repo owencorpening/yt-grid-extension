@@ -1,6 +1,6 @@
 {
   "name": "yt-grid-extension",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Search Grid & Recency Filter for YouTube — Chrome MV3 extension",
   "private": true,
   "scripts": {

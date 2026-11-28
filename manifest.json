@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Search Grid & Recency Filter for YouTube™: Grid View, Hide Old Videos",
   "short_name": "Search Grid",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Turns YouTube™ search results into a grid you can size, and can hide old videos by upload date. Free, no tracking.",
   "homepage_url": "https://owensappliedthinking.com/tools/search-grid/",
   "permissions": [

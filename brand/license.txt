@@ -1,0 +1,8 @@
+Original artwork by Owen Corpening / OAT, made 2026-11-27 with the OAT
+brand-kit generator. All rights reserved.
+
+Lettering is Source Serif 4 and Inter (SIL Open Font License 1.1),
+converted to outlines; no font files are included or needed.
+Motion loops are rendered from the same vector art; no stock footage,
+photos or generated images are used in them.
+Rules for use: oat-standards standards/brand-architecture.md.

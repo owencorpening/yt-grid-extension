@@ -1,3 +1,8 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="brand/banner/search-grid-readme-hero-1280x320-dark.png">
+  <img src="brand/banner/search-grid-readme-hero-1280x320.png" alt="Search Grid: YouTube™ search results in a grid you can size, with old videos hidden." width="100%">
+</picture>
+
 # Search Grid & Recency Filter for YouTube™
 
 A free Chrome extension that does two things on YouTube:
